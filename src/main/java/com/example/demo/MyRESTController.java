@@ -1,8 +1,11 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class MyRESTController {
@@ -13,6 +16,36 @@ public class MyRESTController {
 	@GetMapping("/contacts")
 	public Iterable<Contact> getContacts() {
 		return repository.findAll();
+	}
+
+	@PostMapping("/contacts")
+	public Contact addContact(@RequestBody Contact contact)
+	{
+		contact.setId(0);
+		repository.save(contact);
+		return contact;
+	}
+
+	@DeleteMapping("/contacts/{searchString}")
+	public String deleteContact(@PathVariable String searchString)
+	{
+		if(searchString.contains("@") && repository.findByEmail(searchString).size()!=0)
+			repository.deleteByEmail(searchString);
+		else if(repository.findByName(searchString).size()!=0)
+			repository.deleteByName(searchString);
+		else
+			return "No Record Matching";
+
+		return "Deletion Success";
+	}
+
+	@GetMapping("/contacts/{searchString}")
+	public List<Contact> getContacts(@PathVariable String searchString)
+	{
+		if(searchString.contains("@"))
+			return repository.findByEmail(searchString);
+		else
+			return repository.findByName(searchString);
 	}
 
 }

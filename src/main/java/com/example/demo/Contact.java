@@ -21,12 +21,24 @@ public class Contact {
 
     private String name;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
+
     public Contact() {
 
     }
 
-    public Contact(String name) {
+    public Contact(String name,String email) {
+
         this.name = name;
+        this.email = email;
     }
 
     /**
