@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class MyRESTController {
 
 	@Autowired
 	ContactRepository repository;
 
 	@GetMapping("/contacts")
-	public Iterable<Contact> getContacts() {
-		return repository.findAll();
+	public List<Contact> getContacts() {
+		return (List<Contact>) repository.findAll();
 	}
 
 	@PostMapping("/contacts")

@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ContactRepository extends CrudRepository<Contact, Integer> {
 
+    List<Contact> findAll();
+
     List<Contact> deleteByName(String name);
 
     List<Contact> deleteByEmail(String email);
