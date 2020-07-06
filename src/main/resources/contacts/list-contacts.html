@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Contacts Portal</title>
+</head>
+
+<body>
+<br><br>
+<div class="container">
+
+    <h3>Contacts Portal</h3>
+    <hr>
+    <form action="#" th:action="@{/contacts/search}"
+          th:object="${searchString}" method="GET">
+
+        <input type="text"	th:field="{searchString}"
+               class="form-control mb-4 col-4" placeholder="Search by Name and Email">
+
+        <button type="submit" class="btn btn-info col-2">Search</button>
+
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Contact Id</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="contact : ${contacts}">
+            <td th:text="${contact.id}"/>
+            <td th:text="${contact.name}" />
+            <td th:text="${contact.email}" />
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<br><br><br>
+<hr>
+
+</body>
+</html>
+
+
+
